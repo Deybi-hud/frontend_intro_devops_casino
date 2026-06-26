@@ -72,6 +72,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: push
     steps:
+      - name: Clonar código fuente (Manifiestos K8s)
+        uses: actions/checkout@v4
+
       - name: Configurar credenciales de AWS Academy
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -84,7 +87,7 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER }}
 
-      - name: Desplegar en EKS usando set image
+      - name: Desplegar en EKS (100% Automático)
         env:
           IMAGE_TAG_SHA: ${{ github.sha }}
         run: |
